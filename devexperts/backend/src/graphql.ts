@@ -41,6 +41,10 @@ export interface DividendHistoryInput {
     tickerBagId: number;
 }
 
+export interface TickersInput {
+    search?: Nullable<string>;
+}
+
 export interface CreateUserInput {
     firstName: string;
     lastName: string;
@@ -52,6 +56,12 @@ export interface CreateUserInput {
 export interface CreateTickerBagInput {
     name: string;
     tickerIds: number[];
+}
+
+export interface CreateTickerInput {
+    symbol: string;
+    figi: string;
+    companyName: string;
 }
 
 export interface UpdateTickerBagInput {
@@ -67,6 +77,7 @@ export interface RemoveEntityInput {
 export interface IQuery {
     currentUser(): Nullable<User> | Promise<Nullable<User>>;
     myTickerBags(): TickerBag[] | Promise<TickerBag[]>;
+    tickers(tickersInput?: Nullable<TickersInput>): Ticker[] | Promise<Ticker[]>;
     dividendHistory(dividendHistoryInput: DividendHistoryInput): DividendHistory[] | Promise<DividendHistory[]>;
 }
 
@@ -76,6 +87,7 @@ export interface IMutation {
     createTickerBag(createTickerBagInput: CreateTickerBagInput): TickerBag | Promise<TickerBag>;
     updateTickerBag(updateTickerBagInput: UpdateTickerBagInput): TickerBag | Promise<TickerBag>;
     removeTickerBag(removeTickerBagInput: RemoveEntityInput): Nullable<TickerBag> | Promise<Nullable<TickerBag>>;
+    createTicker(createTickerInput: CreateTickerInput): Ticker | Promise<Ticker>;
 }
 
 export interface User {
@@ -100,6 +112,8 @@ export interface TickerBag {
 
 export interface DividendHistory {
     id: number;
+    ticker: Ticker;
+    dividendRate: number;
     dividendExDate: Date;
     paymentDate: Date;
     recordDate: Date;

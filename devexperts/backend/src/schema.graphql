@@ -3,6 +3,7 @@ scalar Date
 type Query {
   currentUser: User
   myTickerBags: [TickerBag!]!
+  tickers(tickersInput: TickersInput): [Ticker!]!
   dividendHistory(dividendHistoryInput: DividendHistoryInput!): [DividendHistory!]!
 }
 
@@ -22,6 +23,10 @@ type Mutation {
   removeTickerBag(
     removeTickerBagInput: RemoveEntityInput!
   ): TickerBag
+
+  createTicker(
+    createTickerInput: CreateTickerInput!
+  ): Ticker!
 }
 
 type User {
@@ -29,10 +34,10 @@ type User {
   firstName: String!
   lastName: String!
   nickname: String!
-
   email: String!
   preferredLanguage: Language!
   preferredCurrency: Currency!
+
   ownTickerBags: [TickerBag!]!
 
   createdAt: Date!
@@ -48,6 +53,9 @@ type TickerBag {
 
 type DividendHistory {
   id: Int!
+  ticker: Ticker!
+  dividendRate: Float!
+
   dividendExDate: Date!
   paymentDate: Date!
   recordDate: Date!
@@ -96,6 +104,10 @@ input DividendHistoryInput {
   tickerBagId: Int!
 }
 
+input TickersInput {
+  search: String
+}
+
 input CreateUserInput {
   firstName: String!
   lastName: String!
@@ -107,6 +119,12 @@ input CreateUserInput {
 input CreateTickerBagInput {
   name: String!
   tickerIds: [Int!]!
+}
+
+input CreateTickerInput {
+  symbol: String!
+  figi: String!
+  companyName: String!
 }
 
 input UpdateTickerBagInput {
