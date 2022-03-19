@@ -2,19 +2,19 @@ scalar Date
 
 type Query {
   currentUser: User # ✅
-  myTickerBags: [TickerBag!]!
-  tickers(tickersInput: TickersInput): [Ticker!]!
+  myTickerBags: [TickerBag!]! # ✅
+  tickers(tickersInput: TickersInput): [Ticker!]! # ✅
   dividendHistory(dividendHistoryInput: DividendHistoryInput!): [DividendHistory!]!
 }
 
 type Mutation {
-  login(username: String!, password: String!): User
+  login(username: String!, password: String!): User # ✅
 
-  createUser(createUserInput: CreateUserInput!): User
+  createUser(createUserInput: CreateUserInput!): User! # ✅
 
   createTickerBag(
     createTickerBagInput: CreateTickerBagInput!
-  ): TickerBag!
+  ): TickerBag! # ✅
 
   updateTickerBag(
     updateTickerBagInput: UpdateTickerBagInput!
@@ -26,7 +26,7 @@ type Mutation {
 
   createTicker(
     createTickerInput: CreateTickerInput!
-  ): Ticker!
+  ): Ticker! # ✅
 }
 
 type User {
@@ -38,7 +38,7 @@ type User {
   preferredLanguage: Language!
   preferredCurrency: Currency!
 
-  ownTickerBags: [TickerBag!]!
+  ownTickerBags: [TickerBag!]! # ✅
 
   createdAt: Date!
   updatedAt: Date
@@ -47,8 +47,8 @@ type User {
 type TickerBag {
   id: Int!
   name: String!
-  owner: User!
-  tickers: [Ticker!]!
+  owner: User! # ✅
+  tickers: [Ticker!]! # ✅
 }
 
 type DividendHistory {
@@ -76,28 +76,28 @@ input DividendHistoryInput {
   tickerBagId: Int!
 }
 
-input TickersInput {
-  search: String
-}
+input TickersInput { # ✅
+  search: String # ✅
+} # ✅
 
-input CreateUserInput {
-  firstName: String!
-  lastName: String!
-  nickname: String!
-  email: String!
-  password: String!
-}
+input CreateUserInput { # ✅
+  firstName: String! # ✅
+  lastName: String! # ✅
+  nickname: String! # ✅
+  email: String! # ✅
+  password: String! # ✅
+} # ✅
 
-input CreateTickerBagInput {
-  name: String!
-  tickerIds: [Int!]!
-}
+input CreateTickerBagInput { # ✅
+  name: String! # ✅
+  tickerIds: [Int!]! # ✅
+} # ✅
 
-input CreateTickerInput {
-  symbol: String!
-  figi: String!
-  companyName: String!
-}
+input CreateTickerInput { # ✅
+  symbol: String! # ✅
+  figi: String! # ✅
+  companyName: String! # ✅
+} # ✅
 
 input UpdateTickerBagInput {
   id: Int!

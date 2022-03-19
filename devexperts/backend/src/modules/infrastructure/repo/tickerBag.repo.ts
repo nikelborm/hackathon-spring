@@ -31,10 +31,16 @@ export class TickerBagRepo {
   }
 
   public async save(tickerBag: DeepPartial<TickerBag>): Promise<TickerBag> {
-    return this.repo.save(tickerBag);
+    return await this.repo.save(tickerBag);
   }
 
-  async delete(id: number) {
-    await this.repo.delete(id);
+  async delete(tickerBagId: number, userId: number) {
+    await this.repo
+      .createQueryBuilder()
+      .delete()
+      .from('ticker_bag')
+      .where('ticker_bag.id = :tickerBagId', { tickerBagId })
+      .andWhere('ticker_bag."ownerId" = :userId', { userId })
+      .execute();
   }
 }

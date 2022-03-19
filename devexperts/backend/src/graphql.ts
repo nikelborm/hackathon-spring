@@ -83,7 +83,7 @@ export interface IQuery {
 
 export interface IMutation {
     login(username: string, password: string): Nullable<User> | Promise<Nullable<User>>;
-    createUser(createUserInput: CreateUserInput): Nullable<User> | Promise<Nullable<User>>;
+    createUser(createUserInput: CreateUserInput): User | Promise<User>;
     createTickerBag(createTickerBagInput: CreateTickerBagInput): TickerBag | Promise<TickerBag>;
     updateTickerBag(updateTickerBagInput: UpdateTickerBagInput): TickerBag | Promise<TickerBag>;
     removeTickerBag(removeTickerBagInput: RemoveEntityInput): Nullable<TickerBag> | Promise<Nullable<TickerBag>>;

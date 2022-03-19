@@ -1,6 +1,13 @@
-import { Args, Mutation, Parent, Query, ResolveField, Resolver } from '@nestjs/graphql';
+import {
+  Args,
+  Mutation,
+  Parent,
+  Query,
+  ResolveField,
+  Resolver,
+} from '@nestjs/graphql';
 import { model, repo } from '../infrastructure';
-import { CreateTickerBagInput } from 'src/graphql';
+import { CreateTickerBagInput, RemoveEntityInput } from 'src/graphql';
 import { TickerBagUseCase } from './tickerBag.useCase';
 import { CurrentUser } from 'src/tools';
 
@@ -23,6 +30,15 @@ export class TickerBagResolver {
       createTickerBagInput,
       user.id,
     );
+  }
+
+  @Mutation('removeTickerBag')
+  public async removeTickerBag(
+    @CurrentUser() user: model.User,
+    @Args('removeTickerBagInput')
+    { id }: RemoveEntityInput,
+  ) {
+    return await this.tickerBagRepo.delete(id, user.id);
   }
 
   @Query('myTickerBags')
