@@ -7,7 +7,11 @@ import {
   Resolver,
 } from '@nestjs/graphql';
 import { model, repo } from '../infrastructure';
-import { CreateTickerBagInput, RemoveEntityInput } from 'src/graphql';
+import {
+  CreateTickerBagInput,
+  RemoveEntityInput,
+  UpdateTickerBagInput,
+} from 'src/graphql';
 import { TickerBagUseCase } from './tickerBag.useCase';
 import { CurrentUser } from 'src/tools';
 
@@ -28,7 +32,19 @@ export class TickerBagResolver {
   ) {
     return await this.tickerBagUseCase.createTickerBag(
       createTickerBagInput,
-      user.id,
+      user?.id,
+    );
+  }
+
+  @Mutation('updateTickerBag')
+  public async updateTickerBag(
+    @CurrentUser() user: model.User,
+    @Args('updateTickerBagInput')
+    updateTickerBagInput: UpdateTickerBagInput,
+  ) {
+    return await this.tickerBagUseCase.updateTickerBag(
+      updateTickerBagInput,
+      user?.id,
     );
   }
 
