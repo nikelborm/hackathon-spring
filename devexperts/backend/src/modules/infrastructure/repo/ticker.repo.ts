@@ -1,7 +1,7 @@
 import { BadRequestException, Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { messages } from 'src/config';
-import { Repository } from 'typeorm';
+import { DeepPartial, Repository } from 'typeorm';
 import { Ticker } from '../model';
 
 @Injectable()
@@ -24,8 +24,29 @@ export class TickerRepo {
     return ticker;
   }
 
-  public async save(ticker: Ticker): Promise<Ticker> {
-    return this.repo.save(ticker);
+  async getManyInsideTickerBag(tickerBagId: number) {
+    const tickers = await this.repo.query(
+      `
+        select ticker.* from ticker_bag_to_ticker
+        inner join ticker on (ticker_bag_to_ticker."tickerId" = ticker.id)
+        where "tickerBagId" = $1
+      `,
+      [tickerBagId],
+    );
+    console.log(
+      '🚀 ~ file: ticker.repo.ts ~ line 38 ~ TickerRepo ~ getManyInsideTickerBag ~ tickers',
+      tickers,
+    );
+    return tickers;
+  }
+
+  public async save(ticker: DeepPartial<Ticker>): Promise<Ticker> {
+    const asd = this.repo.save(ticker);
+    console.log(
+      '🚀 ~ file: ticker.repo.ts ~ line 29 ~ TickerRepo ~ save ~ asd',
+      asd,
+    );
+    return asd;
   }
 
   async delete(id: number) {

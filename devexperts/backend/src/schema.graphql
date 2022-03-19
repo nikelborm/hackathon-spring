@@ -1,7 +1,7 @@
 scalar Date
 
 type Query {
-  currentUser: User
+  currentUser: User # ✅
   myTickerBags: [TickerBag!]!
   tickers(tickersInput: TickersInput): [Ticker!]!
   dividendHistory(dividendHistoryInput: DividendHistoryInput!): [DividendHistory!]!
@@ -70,34 +70,6 @@ type Ticker {
   companyName: String!
 }
 
-enum Language {
-  ru
-  en
-}
-
-enum Currency {
-  xcd
-  bbd
-  usd
-  cny
-  cop
-  crc
-  dop
-  gtq
-  hnl
-  hkd
-  jmd
-  nio
-  pyg
-  pen
-  eur
-  twd
-  ttd
-  mxn
-  rub
-  czk
-}
-
 input DividendHistoryInput {
   startDate: Date
   endDate: Date
@@ -135,4 +107,32 @@ input UpdateTickerBagInput {
 
 input RemoveEntityInput {
   id: Int!
+}
+
+enum Language {
+  ru
+  en
+}
+
+enum Currency {
+  xcd
+  bbd
+  usd
+  cny
+  cop
+  crc
+  dop
+  gtq
+  hnl
+  hkd
+  jmd
+  nio
+  pyg
+  pen
+  eur
+  twd
+  ttd
+  mxn
+  rub
+  czk
 }

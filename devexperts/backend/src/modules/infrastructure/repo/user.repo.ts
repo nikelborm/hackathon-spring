@@ -1,7 +1,7 @@
 import { BadRequestException, Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { messages } from 'src/config';
-import { Repository } from 'typeorm';
+import { DeepPartial, Repository } from 'typeorm';
 import { User } from '../model';
 
 @Injectable()
@@ -24,13 +24,24 @@ export class UserRepo {
     return user;
   }
 
+  async getOneByIdWithTickerBags(id: number) {
+    const user = await this.repo.findOne(id, {
+      relations: ['tickerBags'],
+    });
+    if (!user)
+      throw new BadRequestException(
+        messages.repo.common.cantGetNotFoundById('user', id),
+      );
+    return user;
+  }
+
   public async getOneByLogin(login: string): Promise<User> {
     return this.repo.findOne({
       where: [{ email: login }, { nickname: login }],
     });
   }
 
-  public async save(user: User): Promise<User> {
+  public async save(user: DeepPartial<User>): Promise<User> {
     return this.repo.save(user);
   }
 

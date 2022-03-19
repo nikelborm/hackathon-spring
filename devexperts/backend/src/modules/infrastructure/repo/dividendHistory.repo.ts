@@ -1,7 +1,7 @@
 import { BadRequestException, Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { messages } from 'src/config';
-import { Repository } from 'typeorm';
+import { DeepPartial, Repository } from 'typeorm';
 import { DividendHistory } from '../model';
 
 @Injectable()
@@ -25,7 +25,7 @@ export class DividendHistoryRepo {
   }
 
   public async save(
-    dividendHistory: DividendHistory,
+    dividendHistory: DeepPartial<DividendHistory>,
   ): Promise<DividendHistory> {
     return this.repo.save(dividendHistory);
   }

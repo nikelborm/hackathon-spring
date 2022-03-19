@@ -6,8 +6,10 @@ import { appConfig, dbConfig } from './config';
 import { AccessLogMiddleware } from './tools';
 import { UserModule } from './modules/user';
 import { InfrastructureModule } from './modules/infrastructure';
-import { PaymentsModule } from './modules/import';
+import { ImportModule } from './modules/import';
 import { ApolloDriver, ApolloDriverConfig } from '@nestjs/apollo';
+import { TickerBagModule } from './modules/tickerBag';
+import { TickerModule } from './modules/ticker';
 
 @Module({
   imports: [
@@ -26,7 +28,9 @@ import { ApolloDriver, ApolloDriverConfig } from '@nestjs/apollo';
     }),
     InfrastructureModule,
     UserModule,
-    PaymentsModule,
+    ImportModule,
+    TickerBagModule,
+    TickerModule,
   ],
 })
 export class AppModule {

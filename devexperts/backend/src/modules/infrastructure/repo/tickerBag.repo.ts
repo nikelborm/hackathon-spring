@@ -1,7 +1,7 @@
 import { BadRequestException, Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { messages } from 'src/config';
-import { Repository } from 'typeorm';
+import { DeepPartial, Repository } from 'typeorm';
 import { TickerBag } from '../model';
 
 @Injectable()
@@ -24,7 +24,13 @@ export class TickerBagRepo {
     return tickerBag;
   }
 
-  public async save(tickerBag: TickerBag): Promise<TickerBag> {
+  async getManyBy(ownerId: number) {
+    return await this.repo.find({
+      ownerId,
+    });
+  }
+
+  public async save(tickerBag: DeepPartial<TickerBag>): Promise<TickerBag> {
     return this.repo.save(tickerBag);
   }
 
