@@ -1,0 +1,118 @@
+scalar Date
+
+type Query {
+  currentUser: User
+  myTickerBags: [TickerBag!]!
+  dividendHistory(dividendHistoryInput: DividendHistoryInput!): [DividendHistory!]!
+}
+
+type Mutation {
+  login(username: String!, password: String!): User
+
+  createUser(createUserInput: CreateUserInput!): User
+
+  createTickerBag(
+    createTickerBagInput: CreateTickerBagInput!
+  ): TickerBag!
+
+  updateTickerBag(
+    updateTickerBagInput: UpdateTickerBagInput!
+  ): TickerBag!
+
+  removeTickerBag(
+    removeTickerBagInput: RemoveEntityInput!
+  ): TickerBag
+}
+
+type User {
+  id: Int!
+  firstName: String!
+  lastName: String!
+
+  email: String!
+  preferredLanguage: Language!
+  preferredCurrency: Currency!
+  ownTickerBags: [TickerBag!]!
+
+  createdAt: Date!
+  updatedAt: Date
+}
+
+type TickerBag {
+  id: Int!
+  name: String!
+  owner: User!
+  tickers: [Ticker!]!
+}
+
+type DividendHistory {
+  id: Int!
+  dividendExDate: Date!
+  paymentDate: Date!
+  recordDate: Date!
+  indicatedAnnualDividend: Date!
+  announcementDate: Date!
+}
+
+type Ticker {
+  id: Int!
+  symbol: String!
+  figi: String!
+  companyName: String!
+}
+
+enum Language {
+  ru
+  en
+}
+
+enum Currency {
+  xcd
+  bbd
+  usd
+  cny
+  cop
+  crc
+  dop
+  gtq
+  hnl
+  hkd
+  jmd
+  nio
+  pyg
+  pen
+  eur
+  twd
+  ttd
+  mxn
+  rub
+  czk
+}
+
+input DividendHistoryInput {
+  startDate: Date
+  endDate: Date
+  tickerBagId: Int!
+}
+
+input CreateUserInput {
+  firstName: String!
+  lastName: String!
+  email: String!
+  password: String!
+}
+
+input CreateTickerBagInput {
+  name: String!
+  tickerIds: [Int!]!
+}
+
+input UpdateTickerBagInput {
+  id: Int!
+  name: String
+  tickerIds: [Int!]
+}
+
+input RemoveEntityInput {
+  id: Int!
+}
