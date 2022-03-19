@@ -44,6 +44,7 @@ export interface DividendHistoryInput {
 export interface CreateUserInput {
     firstName: string;
     lastName: string;
+    nickname: string;
     email: string;
     password: string;
 }
@@ -81,6 +82,7 @@ export interface User {
     id: number;
     firstName: string;
     lastName: string;
+    nickname: string;
     email: string;
     preferredLanguage: Language;
     preferredCurrency: Currency;

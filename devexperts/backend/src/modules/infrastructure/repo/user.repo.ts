@@ -26,7 +26,7 @@ export class UserRepo {
 
   public async getOneByLogin(login: string): Promise<User> {
     return this.repo.findOne({
-      where: { email: login },
+      where: [{ email: login }, { nickname: login }],
     });
   }
 

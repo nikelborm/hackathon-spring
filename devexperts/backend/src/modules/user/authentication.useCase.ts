@@ -8,8 +8,7 @@ export class AuthenticationUseCase {
 
   public async validateUser(login: string, password: string) {
     const user = await this.userRepository.getOneByLogin(login);
-    const compareResult = await bcrypt.compare(password, user.passwordHash);
-    if (user && compareResult) {
+    if (user && (await bcrypt.compare(password, user.passwordHash))) {
       const { passwordHash, ...rest } = user;
       return rest;
     }

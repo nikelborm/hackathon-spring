@@ -28,6 +28,7 @@ type User {
   id: Int!
   firstName: String!
   lastName: String!
+  nickname: String!
 
   email: String!
   preferredLanguage: Language!
@@ -98,6 +99,7 @@ input DividendHistoryInput {
 input CreateUserInput {
   firstName: String!
   lastName: String!
+  nickname: String!
   email: String!
   password: String!
 }

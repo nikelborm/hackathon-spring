@@ -20,6 +20,9 @@ export class User {
   @Column({ nullable: false })
   lastName!: string;
 
+  @Column({ nullable: false, unique: true })
+  nickname!: string;
+
   @Column({
     type: 'enum',
     enum: Currency,
