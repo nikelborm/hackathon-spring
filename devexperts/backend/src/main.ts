@@ -28,6 +28,8 @@ async function bootstrap() {
     expressSession({
       store: new PgSession({ pool: pgPool, tableName: 'session' }),
       cookie: { maxAge: 30 * 24 * 60 * 60 * 1000, httpOnly: false },
+      resave: false,
+      saveUninitialized: false,
       secret: 'valeryAboba',
     }),
   );
