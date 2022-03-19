@@ -8,10 +8,6 @@ export function logConfig(configService: ConfigService) {
   console.log('isDevelopment:', configService.get('isDevelopment'));
   console.log('isProduction:', configService.get('isProduction'));
   console.log('serverPort:', configService.get('serverPort'));
-  console.log(
-    'currencyLayerAccessKey:',
-    configService.get('currencyLayerAccessKey'),
-  );
   console.log('apiKey:', configService.get('apiKey'));
 
   console.log('database.type:', configService.get('database.type'));
