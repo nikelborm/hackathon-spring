@@ -19,6 +19,8 @@ export interface RouteEntity {
   Component: React.FC<React.PropsWithChildren<any>>;
   path?: string;
   forAuthed?: boolean;
+  title?: string;
+  description?: string;
 }
 
 type RoutesCollection = {
@@ -38,31 +40,38 @@ export const routes: RoutesCollection = {
     path: Routes.TICKER_LIST,
     Component: Tickers,
     forAuthed: true,
+    title: 'Tickers',
+    description: 'Страница со списком всех существующих тикеров в системе',
   },
   tickerBags: {
     path: Routes.TICKER_BAG_LIST,
     Component: TickerBags,
     forAuthed: true,
+    title: 'Ticker bags',
   },
   viewTickerBag: {
     path: Routes.TICKER_BAG_VIEW,
     Component: TickerBagView,
     forAuthed: true,
+    title: 'Ticker bag: view',
   },
   editTickerBag: {
     path: Routes.EDIT_TICKER_BAG,
     Component: EditTickerBag,
     forAuthed: true,
+    title: 'Ticker bag: edit',
   },
   calendar: {
     path: Routes.CALENDAR,
     Component: Calendar,
     forAuthed: true,
+    title: 'Ticker bag: calendar',
   },
   profile: {
     path: Routes.PROFILE,
     Component: Profile,
     forAuthed: true,
+    title: 'Profile',
   },
 };
 

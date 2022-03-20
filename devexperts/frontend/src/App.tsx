@@ -6,17 +6,57 @@ import {
   CalendarOutlined,
   UserOutlined,
 } from '@ant-design/icons';
-import { Layout, Menu, Breadcrumb, Typography, PageHeader } from 'antd';
+import { Layout, Menu, Breadcrumb, PageHeader } from 'antd';
 
-const { Title } = Typography;
 const { SubMenu } = Menu;
 const { Header, Content, Footer, Sider } = Layout;
 
 function App() {
-  const [isMenuCollapsed, setCollapsedMenu] = useState(false);
   const location = useLocation();
   console.log('🚀 ~ file: App.tsx ~ line 18 ~ App ~ location', location);
 
+  return (
+    <Switch>
+      {Object.entries(routes).map(
+        ([key, { Component, forAuthed, title, description, ...rest }]) => (
+          <Route
+            key={key}
+            {...rest}
+            exact
+            render={() =>
+              forAuthed ? (
+                localStorage.getItem('authed') === 'authed' ? (
+                  <AuthedPageWrapper title={title} description={description}>
+                    <Component />
+                  </AuthedPageWrapper>
+                ) : (
+                  <Redirect to={notAuthedFallbackRoute} />
+                )
+              ) : localStorage.getItem('authed') === 'authed' ? (
+                <Redirect to={authedFallbackRoute} />
+              ) : (
+                <Component />
+              )
+            }
+          />
+        )
+      )}
+      <Route
+        path="/*"
+        render={() =>
+          localStorage.getItem('authed') === 'authed' ? (
+            <Redirect to={authedFallbackRoute} />
+          ) : (
+            <Redirect to={notAuthedFallbackRoute} />
+          )
+        }
+      />
+    </Switch>
+  );
+}
+
+function AuthedPageWrapper({ children, title, description }) {
+  const [isMenuCollapsed, setCollapsedMenu] = useState(false);
   return (
     <Layout style={{ minHeight: '100vh' }}>
       <Sider
@@ -25,7 +65,6 @@ function App() {
         onCollapse={setCollapsedMenu}
       >
         <div className="logo" />
-        {}
         <Menu theme="dark" defaultSelectedKeys={['1']} mode="inline">
           <Menu.Item key="Tickers" icon={<PieChartOutlined />}>
             Tickers
@@ -48,10 +87,9 @@ function App() {
         <Header className="site-layout-background" style={{ padding: 0 }}>
           <PageHeader
             className="site-page-header"
-            title="Tickers"
-            subTitle="Страница со списком всех существующих тикеров в системе"
+            title={title}
+            subTitle={description}
           />
-          <Title></Title>
         </Header>
         <Content style={{ margin: '0 16px' }}>
           <Breadcrumb style={{ margin: '16px 0' }}>
@@ -61,30 +99,7 @@ function App() {
             className="site-layout-background"
             style={{ padding: 24, minHeight: 360 }}
           >
-            <Switch>
-              {Object.entries(routes).map(
-                ([key, { Component, forAuthed, ...rest }]) => (
-                  <Route
-                    key={key}
-                    {...rest}
-                    exact
-                    render={() =>
-                      forAuthed ? (
-                        localStorage.getItem('authed') === 'authed' ? (
-                          <Component />
-                        ) : (
-                          <Redirect to={notAuthedFallbackRoute} />
-                        )
-                      ) : localStorage.getItem('authed') === 'authed' ? (
-                        <Redirect to={authedFallbackRoute} />
-                      ) : (
-                        <Component />
-                      )
-                    }
-                  />
-                )
-              )}
-            </Switch>
+            {children}
           </div>
         </Content>
         <Footer style={{ textAlign: 'center' }}>
