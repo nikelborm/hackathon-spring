@@ -6,8 +6,9 @@ import {
   CalendarOutlined,
   UserOutlined,
 } from '@ant-design/icons';
-import { Layout, Menu, Breadcrumb } from 'antd';
+import { Layout, Menu, Breadcrumb, Typography, PageHeader } from 'antd';
 
+const { Title } = Typography;
 const { SubMenu } = Menu;
 const { Header, Content, Footer, Sider } = Layout;
 
@@ -40,11 +41,17 @@ function App() {
         </Menu>
       </Sider>
       <Layout className="site-layout">
-        <Header className="site-layout-background" style={{ padding: 0 }} />
+        <Header className="site-layout-background" style={{ padding: 0 }}>
+          <PageHeader
+            className="site-page-header"
+            title="Tickers"
+            subTitle="Страница со списком всех существующих тикеров в системе"
+          />
+          <Title></Title>
+        </Header>
         <Content style={{ margin: '0 16px' }}>
           <Breadcrumb style={{ margin: '16px 0' }}>
-            <Breadcrumb.Item>User</Breadcrumb.Item>
-            <Breadcrumb.Item>Bill</Breadcrumb.Item>
+            <Breadcrumb.Item>Tickers</Breadcrumb.Item>
           </Breadcrumb>
           <div
             className="site-layout-background"
