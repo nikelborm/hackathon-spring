@@ -1,10 +1,12 @@
 import React, { useState } from 'react';
-import { Redirect, Route, Switch, useLocation } from 'react-router-dom';
+import { Link, Redirect, Route, Switch, useLocation } from 'react-router-dom';
 import { authedFallbackRoute, notAuthedFallbackRoute, routes } from './routes';
 import {
   PieChartOutlined,
   CalendarOutlined,
   UserOutlined,
+  FolderOpenOutlined,
+  AppstoreOutlined,
 } from '@ant-design/icons';
 import { Layout, Menu, PageHeader } from 'antd';
 
@@ -63,23 +65,64 @@ function AuthedPageWrapper({ children, title, description }) {
         collapsible
         collapsed={isMenuCollapsed}
         onCollapse={setCollapsedMenu}
+        width={300}
       >
         <div className="logo" />
         <Menu theme="dark" defaultSelectedKeys={['1']} mode="inline">
           <Menu.Item key="Tickers" icon={<PieChartOutlined />}>
-            Tickers
+            <Link to="/tickers">Tickers</Link>
           </Menu.Item>
+
+          <Menu.Item key="TickersBagsList" icon={<AppstoreOutlined />}>
+            <Link to="/tickerBags">Tickers Bags Gallery</Link>
+          </Menu.Item>
+
+          <SubMenu key="Profile" icon={<UserOutlined />} title="Profile">
+            <Menu.Item key="Profile1">
+              <Link to="/profile">Settings</Link>
+            </Menu.Item>
+
+            <Menu.Item key="Profile2">Logout</Menu.Item>
+          </SubMenu>
+
+          <Menu.Item key="empty"></Menu.Item>
+
           <SubMenu
             key="Calendars"
             icon={<CalendarOutlined />}
             title="Calendars"
           >
-            <Menu.Item key="Calendar1">IT</Menu.Item>
-            <Menu.Item key="Calendar2">Metal Industry</Menu.Item>
+            <Menu.Item key="Calendar1">
+              <Link to="/tickerBags/123/calendar">IT</Link>
+            </Menu.Item>
+
+            <Menu.Item key="Calendar2">
+              <Link to="/tickerBags/123/calendar">Цветная металлургия</Link>
+            </Menu.Item>
+
+            <Menu.Item key="Calendar3">
+              <Link to="/tickerBags/123/calendar">
+                Топливная промышленность
+              </Link>
+            </Menu.Item>
           </SubMenu>
-          <SubMenu key="Profile" icon={<UserOutlined />} title="Profile">
-            <Menu.Item key="Profile1">Settings</Menu.Item>
-            <Menu.Item key="Profile2">Logout</Menu.Item>
+
+          <SubMenu
+            key="TickerBags"
+            icon={<FolderOpenOutlined />}
+            title="Certain Ticker Bags"
+          >
+            <Menu.Item key="TickerBag1">
+              <Link to="/tickerBags/123">IT</Link>
+            </Menu.Item>
+
+            <Menu.Item key="TickerBag2">
+              <Link to="/tickerBags/123">Цветная металлургия</Link>
+            </Menu.Item>
+
+            <Menu.Item key="TickerBag3">
+              <Link to="/tickerBags/123">Топливная промышленность</Link>
+            </Menu.Item>
           </SubMenu>
         </Menu>
       </Sider>
