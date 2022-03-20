@@ -12,10 +12,6 @@ export const messages = {
     invalidToken:
       'Token in Authorization header is not a valid JWT token, try requesting a new one',
   },
-  matchRequest: {
-    alreadyUsed: (code: string) =>
-      `Match request with code={${code}} already used by another user`,
-  },
   repo: {
     common: {
       cantGetNotFoundById: (entityName: string, id: number) =>
@@ -44,10 +40,6 @@ export const messages = {
         `Unable to insert ${entityName || 'entitie'}s ={${JSON.stringify(
           newEntities,
         )}}`,
-    },
-    matchRequest: {
-      cantGetNotFoundBy: (code: string) =>
-        `Match request with code={${code}} not found`,
     },
   },
 };
