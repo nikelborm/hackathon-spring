@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
-import { Route, Switch } from 'react-router-dom';
-import { routes } from './routes';
+import { Redirect, Route, Switch, useLocation } from 'react-router-dom';
+import { authedFallbackRoute, notAuthedFallbackRoute, routes } from './routes';
 import {
   PieChartOutlined,
   CalendarOutlined,
@@ -14,6 +14,9 @@ const { Header, Content, Footer, Sider } = Layout;
 
 function App() {
   const [isMenuCollapsed, setCollapsedMenu] = useState(false);
+  const location = useLocation();
+  console.log('🚀 ~ file: App.tsx ~ line 18 ~ App ~ location', location);
+
   return (
     <Layout style={{ minHeight: '100vh' }}>
       <Sider
@@ -22,6 +25,7 @@ function App() {
         onCollapse={setCollapsedMenu}
       >
         <div className="logo" />
+        {}
         <Menu theme="dark" defaultSelectedKeys={['1']} mode="inline">
           <Menu.Item key="Tickers" icon={<PieChartOutlined />}>
             Tickers
@@ -58,12 +62,28 @@ function App() {
             style={{ padding: 24, minHeight: 360 }}
           >
             <Switch>
-              {Object.keys(routes).map((key) => {
-                const { Component, ...rest } = routes[key];
-                return (
-                  <Route key={key} {...rest} render={() => <Component />} />
-                );
-              })}
+              {Object.entries(routes).map(
+                ([key, { Component, forAuthed, ...rest }]) => (
+                  <Route
+                    key={key}
+                    {...rest}
+                    exact
+                    render={() =>
+                      forAuthed ? (
+                        localStorage.getItem('authed') === 'authed' ? (
+                          <Component />
+                        ) : (
+                          <Redirect to={notAuthedFallbackRoute} />
+                        )
+                      ) : localStorage.getItem('authed') === 'authed' ? (
+                        <Redirect to={authedFallbackRoute} />
+                      ) : (
+                        <Component />
+                      )
+                    }
+                  />
+                )
+              )}
             </Switch>
           </div>
         </Content>

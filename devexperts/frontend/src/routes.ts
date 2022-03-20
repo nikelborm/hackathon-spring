@@ -18,7 +18,7 @@ export enum Routes {
 export interface RouteEntity {
   Component: React.FC<React.PropsWithChildren<any>>;
   path?: string;
-  exact?: boolean;
+  forAuthed?: boolean;
 }
 
 type RoutesCollection = {
@@ -28,42 +28,43 @@ type RoutesCollection = {
 export const routes: RoutesCollection = {
   login: {
     path: Routes.LOGIN,
-    exact: true,
     Component: Login,
   },
   registration: {
     path: Routes.REGISTER,
-    exact: true,
     Component: Register,
   },
   tickers: {
     path: Routes.TICKER_LIST,
-    exact: true,
     Component: Tickers,
+    forAuthed: true,
   },
   tickerBags: {
     path: Routes.TICKER_BAG_LIST,
-    exact: true,
     Component: TickerBags,
+    forAuthed: true,
   },
   viewTickerBag: {
     path: Routes.TICKER_BAG_VIEW,
-    exact: true,
     Component: TickerBagView,
+    forAuthed: true,
   },
   editTickerBag: {
     path: Routes.EDIT_TICKER_BAG,
-    exact: true,
     Component: EditTickerBag,
+    forAuthed: true,
   },
   calendar: {
     path: Routes.CALENDAR,
-    exact: true,
     Component: Calendar,
+    forAuthed: true,
   },
   profile: {
     path: Routes.PROFILE,
-    exact: true,
     Component: Profile,
+    forAuthed: true,
   },
 };
+
+export const authedFallbackRoute = Routes.TICKER_BAG_LIST;
+export const notAuthedFallbackRoute = Routes.LOGIN;

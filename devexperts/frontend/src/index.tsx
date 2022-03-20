@@ -4,7 +4,7 @@ import { ApolloClient, ApolloProvider, InMemoryCache } from '@apollo/client';
 import { BrowserRouter as Router } from 'react-router-dom';
 
 import './index.css';
-import './index.d';
+import './types';
 
 const client = new ApolloClient({
   uri: '/graphql',
