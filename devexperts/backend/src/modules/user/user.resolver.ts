@@ -6,7 +6,7 @@ import {
   ResolveField,
   Resolver,
 } from '@nestjs/graphql';
-import { UseGuards } from '@nestjs/common';
+import { UnauthorizedException, UseGuards } from '@nestjs/common';
 import { CreateUserInput } from 'src/graphql';
 import { model, repo } from '../infrastructure';
 import { LocalGuard } from './guards/local.guard';
@@ -32,6 +32,8 @@ export class UserResolver {
 
   @Query('currentUser')
   public async getCurrentUser(@CurrentUser() shituser) {
+    if (!shituser?.id) throw new UnauthorizedException();
+
     return await this.userRepo.getOneById(shituser?.id);
   }
 
