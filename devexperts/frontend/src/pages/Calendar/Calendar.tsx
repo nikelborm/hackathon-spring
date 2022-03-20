@@ -4,7 +4,6 @@ import { Calendar as AntdCalendar, Badge } from 'antd';
 export const Calendar = () => {
   return (
     <div>
-      Calendar
       <AntdCalendar
         dateCellRender={dateCellRender}
         monthCellRender={monthCellRender}

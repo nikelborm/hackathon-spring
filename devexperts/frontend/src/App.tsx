@@ -6,7 +6,7 @@ import {
   CalendarOutlined,
   UserOutlined,
 } from '@ant-design/icons';
-import { Layout, Menu, Breadcrumb, PageHeader } from 'antd';
+import { Layout, Menu, PageHeader } from 'antd';
 
 const { SubMenu } = Menu;
 const { Header, Content, Footer, Sider } = Layout;
@@ -91,10 +91,8 @@ function AuthedPageWrapper({ children, title, description }) {
             subTitle={description}
           />
         </Header>
+        <div style={{ margin: '16px', opacity: '0' }}></div>
         <Content style={{ margin: '0 16px' }}>
-          <Breadcrumb style={{ margin: '16px 0' }}>
-            <Breadcrumb.Item>Tickers</Breadcrumb.Item>
-          </Breadcrumb>
           <div
             className="site-layout-background"
             style={{ padding: 24, minHeight: 360 }}
