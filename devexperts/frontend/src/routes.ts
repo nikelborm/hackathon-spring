@@ -2,12 +2,14 @@ import React from 'react';
 import { Calendar, Login, Register, TickerBags, Tickers } from 'pages';
 import { Profile } from 'pages/Profile';
 import { EditTickerBag } from 'pages/EditTickerBag';
+import { TickerBagView } from 'pages/TickerBagView';
 
 export enum Routes {
   LOGIN = '/login',
   REGISTER = '/registration',
   TICKER_LIST = '/tickers',
   TICKER_BAG_LIST = '/tickerBags',
+  TICKER_BAG_VIEW = '/tickerBags/:tickerBagId',
   EDIT_TICKER_BAG = '/tickerBags/:tickerBagId/edit',
   CALENDAR = '/tickerBags/:tickerBagId/calendar',
   PROFILE = '/profile',
@@ -43,6 +45,11 @@ export const routes: RoutesCollection = {
     path: Routes.TICKER_BAG_LIST,
     exact: true,
     Component: TickerBags,
+  },
+  viewTickerBag: {
+    path: Routes.TICKER_BAG_VIEW,
+    exact: true,
+    Component: TickerBagView,
   },
   editTickerBag: {
     path: Routes.EDIT_TICKER_BAG,
