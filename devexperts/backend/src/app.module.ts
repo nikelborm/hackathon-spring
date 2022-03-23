@@ -21,7 +21,11 @@ import { TickerModule } from './modules/ticker';
     GraphQLModule.forRoot<ApolloDriverConfig>({
       typePaths: ['./src/schema.graphql'],
       driver: ApolloDriver,
-      playground: true,
+      playground: {
+        settings: {
+          'request.credentials': 'include',
+        },
+      },
       definitions: {
         path: join(process.cwd(), 'src/graphql.ts'),
       },
