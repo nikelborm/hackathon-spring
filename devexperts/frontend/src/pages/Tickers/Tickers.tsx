@@ -6,12 +6,12 @@ export const Tickers = () => {
     {
       title: 'Тикер',
       ...humanTextColumn('symbol'),
-      width: 'calc(95%/4)',
+      width: '30%',
     },
     {
       title: 'Название компании',
       ...humanTextColumn('companyName'),
-      width: 'calc(95%/2)',
+      width: '70%',
     },
   ];
   return (

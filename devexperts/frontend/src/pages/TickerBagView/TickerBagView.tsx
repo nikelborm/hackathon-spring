@@ -7,20 +7,20 @@ export const TickerBagView = () => {
     {
       title: 'Тикер',
       ...humanTextColumn('symbol'),
-      width: 'calc(95%/4)',
+      width: '30%',
     },
     {
       title: 'Название компании',
       ...humanTextColumn('companyName'),
-      width: 'calc(95%/2)',
+      width: '70%',
     },
   ];
   return (
     <>
       <h1>Количестов компаний в портфеле: {tickers.length}</h1>
-      <Link to="">Каледарь</Link>
+      <Link to="/tickerBags/123/calendar">Каледарь</Link>
       <br />
-      <Link to="">Редактирование</Link>
+      <Link to="/tickerBags/123/edit">Редактирование</Link>
       <Table
         tableLayout="fixed"
         dataSource={tickers}
